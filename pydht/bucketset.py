@@ -37,4 +37,4 @@ class BucketSet(object):
                 return key ^ peer[2] # ideally there would be a better way with names? Instead of storing triples it would be nice to have a dict
             peers = (peer for bucket in self.buckets for peer in bucket)
             best_peers = heapq.nsmallest(self.bucket_size, peers, keyfunction)
-            return [Peer(peer) for peer in best_peers]
+            return [Peer(*peer) for peer in best_peers]

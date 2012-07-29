@@ -1,2 +1,2 @@
-from .pydht import DHT, Peer
-__version__ = "0.0.2"
+from .pydht import DHT
+__version__ = "0.0.3"

@@ -20,7 +20,7 @@ class Shortlist(object):
         
     def update(self, nodes):
         for node in nodes:
-            self._update_one(Peer(node))
+            self._update_one(node)
         
     def _update_one(self, node):
         if node.id == self.key or self.completion_value:
@@ -59,11 +59,11 @@ class Shortlist(object):
         with self.lock:
             for node, completed in self.list:
                 if not completed:
-                    next_iteration.append(Peer(node))
+                    next_iteration.append(Peer(*node))
                     if len(next_iteration) >= alpha:
                         break
         return next_iteration
         
     def results(self):
         with self.lock:
-            return [node for (node, completed) in self.list]
+            return [Peer(*node) for (node, completed) in self.list]

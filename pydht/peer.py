@@ -5,14 +5,8 @@ from .hashing import hash_function
 
 class Peer(object):
     ''' DHT Peer Information'''
-    def __init__(self, peer, local_peer=None):
-        if isinstance(peer, (tuple, list)):
-            self.host, self.port, self.id = peer
-        elif isinstance(peer, Peer):
-            self.host, self.port, self.id = peer.host, peer.port, peer.id
-        else:
-            raise TypeError('need tuple, list, or Peer')
-        self.local_peer = local_peer
+    def __init__(self, host, port, id):
+        self.host, self.port, self.id = host, port, id
         
     def astriple(self):
         return (self.host, self.port, self.id)
@@ -24,7 +18,7 @@ class Peer(object):
         return repr(self.astriple())
 
     def _sendmessage(self, message, sock=None, peer_id=None, lock=None):
-        message["peer_id"] = peer_id # this peer value is the one to be sent, not gotten... this might be renamed "from_id" or something
+        message["peer_id"] = peer_id # more like sender_id
         encoded = json.dumps(message)
         if sock:
             if lock:
